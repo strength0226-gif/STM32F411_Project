@@ -849,12 +849,13 @@ SFR: 저장 공간이긴 한데, 이 공간에 값을 쓰거나 읽는 행위 �
 DC 위로 AD: 캐패시터 접지: 0
 
 ## GPIOA
-32BIT<br>
-PA 5의 LED을 쓴다. 
--PA 5(LED)
-INPUT,OUTPUT,ALTANATE,ANALOG의 역할을 해서 총 기본4개 2BIT가 필요
-그렇기에 두개로 나눠 총 32BIT를 쓴다.
--스코프 실험
+* 32BIT
+* PA 5의 LED을 쓴다. 
+	- PA 5(LED)
+* INPUT,OUTPUT,ALTANATE,ANALOG의 역할을 해서 총 기본4개 2BIT가 필요
+* 그렇기에 두개로 나눠 총 32BIT를 쓴다.
+	- 스코프 실험
+
 PA6 
 
  -MODER 0xa80010a0(Hax)
