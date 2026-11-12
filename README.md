@@ -857,10 +857,12 @@ INPUT,OUTPUT,ALTANATE,ANALOG의 역할을 해서 총 기본4개 2BIT가 필요
 PA6 
 
  -MODER 0xa80010a0(Hax)
+ 
  -ODR 0X40 (Hax)
 다음은 스코프 경사 부분 하강과 상승 할때 
 
 -상승 경사 LD2의 상승 ORT=40 = 불 ON
+
 -하강 경사 =불 OFF = ORT =0
 
 ![STM32F411 블럭도](./img/F8.png) <br>
