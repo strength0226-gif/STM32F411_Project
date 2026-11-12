@@ -885,4 +885,7 @@ SFR: 저장 공간이긴 한데, 이 공간에 값을 쓰거나 읽는 행위 �
 -ch2 채널을 밑부분에 첨두치,평균치,주기,주파수를 보게할려면 trig 메뉴를 누르고 ch2로 바꾸고 autoset을 누르면 된다
 ## 초음파 센서이용
 -troger 부분 사용
-
+![STM32F411 블럭도](./img/us.png) <br>
+![STM32F411 블럭도](./img/HAL.png) <br>
+![STM32F411 블럭도](./img/200.jpg) <br>
+![STM32F411 블럭도](./img/zom.jpg) <br>
