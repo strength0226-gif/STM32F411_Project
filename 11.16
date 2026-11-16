@@ -1,0 +1,21 @@
+# c언어
+-아스키코드 기반 printf(goot\bd\trchance\n)
+\n > 줄을 바꿈
+\t > 다음 탭위치로 옮김
+\r > 출력위치를 줄의 맨앞으로 
+\b > 한칸 왼쪽으로 옮김
+\a > 벨소리가 남
+
+- %d(정수를 뜻함), %f(실수를 뜻함), %c(문자를 뜻함), %s(문자열 뜻함)
+
+- int 정수 4byte, double 실수 8byte, char 문자 1byte 음수~양수, char 배열 문자열 가변적
+, unsigned char(양수만)
+
+- #include<stdio.h>
+stdio 안에 scanf 가 있는것.
+
+## scanf의 비정상 오류
+-해결방법: 1. scanf_s 쓰기 2. #define _CRT_SECURE_NO_WARNINGS를 쓰기.
+
+### 비교연산
+
