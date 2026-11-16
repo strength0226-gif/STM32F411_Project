@@ -903,3 +903,192 @@ SFR: 저장 공간이긴 한데, 이 공간에 값을 쓰거나 읽는 행위 �
 
 ![STM32F411 블럭도](./img11.12/p1.png) <br>
 ![STM32F411 블럭도](./img11.12/p2.png) <br>
+
+----
+# c언어
+- 아스키코드 기반 printf(goot\bd\trchance\n)
+
+\n > 줄을 바꿈
+
+\t > 다음 탭위치로 옮김
+
+\r > 출력위치를 줄의 맨앞으로 
+
+\b > 한칸 왼쪽으로 옮김
+
+\a > 벨소리가 남
+
+- %d(정수를 뜻함), %f(실수를 뜻함), %c(문자를 뜻함), %s(문자열 뜻함)
+
+- int 정수 4byte, double 실수 8byte, char 문자 1byte 음수~양수, char 배열 문자열 가변적
+, unsigned char(양수만)
+
+- #include<stdio.h>
+stdio 안에 scanf 가 있는것.
+## scanf의 비정상 오류
+-해결방법: 1. scanf_s 쓰기 2. #define _CRT_SECURE_NO_WARNINGS를 쓰기.
+
+### 비교연산
+- a>b a가 b보다 크면 참
+- a>=b a가 b보다 크거나 같으면 참
+- a<b a가 b보다 작으면 참
+- a<=b a가 b보다 작거나 크면 참
+- a ==b a와 b랑 같으면 참
+- a!=b a와 b랑 다르면 참
+
+### 논리 연산자
+a && b  a와 b 가 모두 참이면 1
+a || b a와 b 중 하나라도 참이면 1
+!a a 가 거짓이면 1 참이면 0
+
+#### sizeof 연산자
+- sizeof(int)  크기를 알아볼려고 할때 쓰는 연산자
+
+res = (a>b)?a:b;
+은 a가 b보다 크면 a 아니라면 b를 저장
+
+##### 비트 연산자 ( 논리 연산자와 구분하기)
+- &  and 연산자
+- ^ xor 연산자
+- | or 연산자
+- ~ not 연산자
+- << 왼쪽 비트 이동 연산자
+- >> 오른쪽 비트 이동 연산자
+
+
+###### 조건문 
+if  else( 순서대로 감)
+switch case(한번 조건의 맞으면 안돌고 바로 빠져나옴)
+
+----------
+# 과제1
+1. div, mod 변수선언( 나머지, 몫)
+2. 변수의 현해(int,flodt,char)
+3. Printf 코드로 넣어서 코드를 완성하기
+
+``` c언어
+#include <stdio.h> 
+int main(void)
+ { 
+int a, b; 
+int sum, sub, mul, inv;
+ a = 10; b = 20;
+ sum = a + b; 
+sub = a - b; 
+mul = a * b; 
+div = a / b; 
+mod = a % b; 
+inv = -a; 
+printf("a :%d, b=%d\n", a, b);
+ printf("sum :%d\n", sum); 
+printf("sub :%d\n", sub);
+ printf("mul :%d\n", mul); 
+printf("inv :%d\n", inv); 
+return 0; 
+} 
+
+```
+-타입 캐스터를 이용해야함.
+## 타입 캐스터란:하나의 자료형(Data Type)을 다른 자료형으로 변환하는 기능
+
+```c언어
+#include <stdio.h> 
+int main(void) 
+{
+ int a, b; int sum, sub, mul, inv;
+ float div, mod; 
+a = 10; 
+b = 20; 
+sum = a + b; 
+sub = a - b; 
+mul = a * b; 
+div = (double) a / b;
+ mod = a % b; 
+inv = -a; 
+printf("a :%d, b=%d\n", a, b);
+ printf("sum :%d\n", sum); 
+printf("sub :%d\n", sub); 
+printf("mul :%d\n", mul); 
+printf("inv :%d\n", inv); 
+printf("div :%f\n", div); 
+printf("mod :%f\n", mod); 
+return 0; 
+} 
+
+```
+
+#과제 2
+라이징 에지 검출 / 폴링 에지 검출 코드를 c 로 작성
+```
+long unsigned int echo(void)
+{
+   long unsigned int echo = 0;
+
+   while(HAL_GPIO_ReadPin(ECHO1_GPIO_Port, ECHO1_Pin) == LOW){}
+        __HAL_TIM_SET_COUNTER(&htim1, 0);
+        while(HAL_GPIO_ReadPin(ECHO1_GPIO_Port, ECHO1_Pin) == HIGH);
+        echo = __HAL_TIM_GET_COUNTER(&htim1);
+   if( echo >= 240 && echo <= 23000 ) return echo;
+   else return 0;
+}
+```
+- 그래서 난  위에 잇는코드 기반으로 짜기로 결심.
+``` c언어
+#include <stdio.h>
+#include <windows.h>
+
+#define HIGH 1
+#define LOW 0
+
+long unsigned int echo(void)
+{
+    int old, now;
+    long unsigned int echo_val = 0;
+    unsigned char HAL_GPIO_ReadPin = 0;
+    unsigned int TIM_COUNTER = 0;
+
+    now = HAL_GPIO_ReadPin;
+
+    while (1) {
+        old = now;
+        now = HAL_GPIO_ReadPin;
+
+        if ((old == 0) && (now == 1)) {
+            printf("rising edge\n");
+            break;
+        }
+        TIM_COUNTER = 0;
+    }
+
+    while (1) {
+        old = now;
+        now = HAL_GPIO_ReadPin;
+
+        if ((old == 1) && (now == 0)) {
+            printf("falling edge\n");
+            break;
+        }
+        TIM_COUNTER++;
+    }
+
+    echo_val = TIM_COUNTER;
+
+    if (echo_val >= 240 && echo_val <= 23000) return echo_val;
+    return 0;
+}
+
+int main(void)
+{
+    while (1)
+    {
+        echo();
+    }
+    return 0;
+}
+```
+now= HAL_GPIO_ReadPIN; 에 F5를 눌러 핀을 고정 
+F10를 누르고 0으로 고정이면 계속 WILE문에 돈다.
+그러고 HAL_GPIO_READPIN에 1을 넣으면 RISING EDGE 이다.
+그러다가 다시 0을 넣으면 FALLING EDGE 이다.
+![결과창](./img/re.png) <br>
+
